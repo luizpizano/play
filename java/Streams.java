@@ -82,5 +82,36 @@ public class Streams {
             .map(Person::name)
             .collect(Collectors.joining(", "));
         System.out.println("joined: " + joined);
+
+        // SUPPLIER — Stream.generate
+        Supplier<Double> randomSupplier = Math::random;
+        List<Double> randoms = Stream.generate(randomSupplier)
+            .limit(5)
+            .toList();
+        System.out.println("randoms: " + randoms);
+
+        // CONSUMER — forEach
+        Consumer<Person> printPerson = p -> System.out.println(p.name() + " (" + p.age() + ")");
+        people.stream()
+            .filter(isAdult)
+            .forEach(printPerson);
+
+        // UNARYOPERATOR — Stream.iterate
+        UnaryOperator<Integer> doubler = n -> n * 2;
+        List<Integer> powers = Stream.iterate(1, doubler)
+            .limit(8)
+            .toList();
+        System.out.println("powers of 2: " + powers);
+
+        // BINARYOPERATOR — toMap merge function
+        List<Person> withDuplicates = List.of(
+            new Person("Alice", 30),
+            new Person("Alice", 35),
+            new Person("Bob", 17)
+        );
+        BinaryOperator<Integer> keepHighest = (existing, incoming) -> incoming > existing ? incoming : existing;
+        Map<String, Integer> deduped = withDuplicates.stream()
+            .collect(Collectors.toMap(Person::name, Person::age, keepHighest));
+        System.out.println("deduped name->age (keep highest): " + deduped);
     }
 }
