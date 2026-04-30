@@ -68,45 +68,45 @@ def opposite(d: Direction): Direction = d match
   val pi    = 3.14159   // val: immutable (like final in Java)
   var count = 0         // var: mutable
   count += 1
-  println(pi)       // 3.14159
-  println(count)    // 1
+  println(pi)
+  println(count)
 
   // FUNCTIONS
-  println(add(3, 4))       // 7
-  println(greet())         // Hello, World!
-  println(greet("Scala"))  // Hello, Scala!
-  println(factorial(5))    // 120
+  println(add(3, 4))
+  println(greet())
+  println(greet("Scala"))
+  println(factorial(5))
 
   // CLASSES
   val dog = Dog("Rex")
-  println(dog.speak())     // Rex says Woof!
-  println(dog.name)        // Rex
+  println(dog.speak())
+  println(dog.name)
 
   // TRAITS
   val duck = Duck("Donald")
-  println(duck.fly())      // Donald is flying
-  println(duck.swim())     // Donald is swimming
+  println(duck.fly())
+  println(duck.swim())
 
   // OBJECTS (singleton)
   Counter.increment()
   Counter.increment()
-  println(Counter.get)     // 2
+  println(Counter.get)
 
   // CASE CLASSES
   val p1 = Point(0, 0)
   val p2 = Point(3, 4)
-  println(p1.distanceTo(p2))     // 5.0
-  val p3 = p2.copy(y = 0)        // copy with one field changed
-  println(p3)                    // Point(3.0,0.0)
-  println(p1 == Point(0, 0))     // true (structural equality)
+  println(p1.distanceTo(p2))
+  val p3 = p2.copy(y = 0)
+  println(p3)
+  println(p1 == Point(0, 0))
 
   // CASE OBJECTS
-  println(Origin)         // Origin
-  println(Origin.x)       // 0.0
+  println(Origin)
+  println(Origin.x)
 
   // SEALED TRAITS — pattern matching is exhaustive (compiler warns if a case is missing)
-  println(area(Circle(5)))          // 78.53981633974483
-  println(area(Rectangle(3, 4)))    // 12.0
-  println(area(Unknown))            // 0.0
-  println(opposite(North))          // South
-  println(opposite(East))           // West
+  println(area(Circle(5)))
+  println(area(Rectangle(3, 4)))
+  println(area(Unknown))
+  println(opposite(North))
+  println(opposite(East))
