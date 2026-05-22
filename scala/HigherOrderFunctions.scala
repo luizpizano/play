@@ -17,19 +17,6 @@ def compose[A, B, C](f: B => C, g: A => B): A => C = x => f(g(x))
 
 val doubleStr: Int => String = compose(_.toString, _ * 2)
 
-// --- CURRYING ---
-def add(a: Int)(b: Int): Int = a + b
-
-val add10: Int => Int = add(10)
-
-def curriedMultiply(a: Int)(b: Int): Int = a * b
-
-// --- PARTIAL APPLICATION ---
-def power(base: Int, exp: Int): Int = math.pow(base, exp).toInt
-
-val square: Int => Int  = power(_, 2)
-val cube: Int => Int    = power(_, 3)
-
 // --- CLOSURES ---
 def counter(): () => Int =
   var count = 0
@@ -70,18 +57,6 @@ val shout: String => String     = normalize andThen exclaim andThen (_.toUpperCa
   println(doubleStr(21))
   val doubleAndNegate = compose((x: Int) => -x, (x: Int) => x * 2)
   println(doubleAndNegate(5))
-
-  // currying
-  println(add(3)(4))
-  println(add10(7))
-  val times3 = curriedMultiply(3)
-  println(times3(9))
-  println(List(1, 2, 3, 4).map(add10))
-
-  // partial application
-  println(square(6))
-  println(cube(3))
-  println(List(1, 2, 3, 4).map(square))
 
   // closures
   val c = counter()
