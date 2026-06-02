@@ -17,6 +17,15 @@ case class Celsius(value: Double):
 
 given Conversion[Double, Celsius] = Celsius(_)
 
+
+case class Config(prefix: String)
+
+def log(msg: String)(using cfg: Config): String =
+  s"[${cfg.prefix}] $msg"
+
+def process(data: String)(using Config): String =
+  log(s"processing '$data'")
+
 @main def run(): Unit =
   println("Type class (Show):")
   println(s"  ${display(42)}")
@@ -26,6 +35,10 @@ given Conversion[Double, Celsius] = Celsius(_)
   println("\nImplicit conversion (Double -> Celsius):")
   val temp: Celsius = 100.0
   println(s"  100.0°C = ${temp.toFahrenheit}°F")
+
+  println("\nContext propagation (Config):")
+  given Config = Config("APP")
+  println(s"  ${process("user-data")}")
 
   println("\nSummoning a given:")
   val showInt = summon[Show[Int]]
