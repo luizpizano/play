@@ -1,5 +1,3 @@
-// --- REFLECTION (Java reflection in Scala 3) ---
-
 case class Person(name: String, age: Int):
   def greet(): String = s"Hi, I'm $name"
 
