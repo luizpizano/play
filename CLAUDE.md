@@ -5,3 +5,7 @@ Never add "Co-Authored-By: Claude" or any Claude/Anthropic co-author line to com
 # Code Style
 
 Do not add comments to code.
+
+# POC Commits
+
+Each POC commit should not exceed 30 lines of code.
