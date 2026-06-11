@@ -18,3 +18,23 @@ object State:
       m <- State.get[Int]
     yield s"was $n, now $m"
   println(counter.run(0))
+
+def push(x: Int): State[List[Int], Unit] = State.modify(x :: _)
+def pop: State[List[Int], Int]           = State(s => (s.tail, s.head))
+
+def sequence[S, A](ss: List[State[S, A]]): State[S, List[A]] =
+  ss.foldRight(State.pure[S, List[A]](Nil)) { (s, acc) =>
+    for a <- s; as <- acc yield a :: as
+  }
+
+@main def run2(): Unit =
+  val stackOps =
+    for
+      _ <- push(1)
+      _ <- push(2)
+      _ <- push(3)
+      a <- pop
+      b <- pop
+    yield (a, b)
+  println(stackOps.run(Nil))
+  println(sequence(List.fill(3)(State.modify[Int](_ + 1))).run(0))
