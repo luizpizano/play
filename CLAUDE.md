@@ -8,4 +8,4 @@ Do not add comments to code.
 
 # POC Commits
 
-Each POC commit should not exceed 20 lines of code.
+Each POC commit should not exceed 10 lines of code.
