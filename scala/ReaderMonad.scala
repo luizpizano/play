@@ -20,7 +20,11 @@ def connStr: Reader[Config, String] =
 def jdbcUrl: Reader[Config, String] =
   for conn <- connStr; db <- dbName yield s"jdbc:postgresql://$conn/$db"
 
+def connStrPlain(c: Config): String = s"${c.host}:${c.port}"
+def jdbcUrlPlain(c: Config): String = s"jdbc:postgresql://${connStrPlain(c)}/${c.db}"
+
 @main def run(): Unit =
   val prod = Config("db.prod", 5432, "prod")
+  println(jdbcUrlPlain(prod))
   println(jdbcUrl.run(prod))
   println(Reader.local[Config, String](_.copy(db = "shadow"))(jdbcUrl).run(prod))
