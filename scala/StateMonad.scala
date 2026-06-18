@@ -19,6 +19,9 @@ object State:
     yield s"was $n, now $m"
   println(counter.run(0))
 
+// State monad threads state automatically; plain version must pass and return it by hand
+def counterPlain(s: Int): (Int, String) = (s + 1, s"was $s, now ${s + 1}")
+
 def push(x: Int): State[List[Int], Unit] = State.modify(x :: _)
 def pop: State[List[Int], Int]           = State(s => (s.tail, s.head))
 
