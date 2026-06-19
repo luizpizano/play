@@ -17,6 +17,11 @@ object IO:
       for a <- io; as <- acc yield a :: as
     }
 
+// IO monad separates describing effects from running them — enables composition, error handling, and referential transparency
+def greetPlain(name: String): Unit =
+  println(s"Hello, $name!")
+  println(s"${name.length} chars in name")
+
 def greet(name: String): IO[Unit] =
   for
     _ <- IO.delay(println(s"Hello, $name!"))
@@ -37,6 +42,7 @@ def safeDivide(a: Int, b: Int): IO[Int] =
   println(IO.pure(10).map(_ * 2).flatMap(n => IO.pure(n + 1)).unsafeRun())
 
   println("\n--- for-comprehension ---")
+  greetPlain("Alice")
   greet("Alice").unsafeRun()
 
   println("\n--- attempt ---")
